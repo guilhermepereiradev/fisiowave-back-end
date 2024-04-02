@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: fisiowave
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fisiowave-db
+    username: postgres
+    password: 12345678
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    database: POSTGRESQL
+
+  flyway:
+    locations: classpath:db/migration,classpath:db/testdata
