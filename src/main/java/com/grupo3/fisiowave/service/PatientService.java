@@ -1,5 +1,6 @@
 package com.grupo3.fisiowave.service;
 
+import com.grupo3.fisiowave.model.Address;
 import com.grupo3.fisiowave.model.Patient;
 import com.grupo3.fisiowave.repository.PatientRepository;
 import com.grupo3.fisiowave.service.exception.ResourceNotFoundException;
@@ -31,18 +32,31 @@ public class PatientService {
     @Transactional
     public Patient save(Patient patient) {
         validatePatient(patient);
-
-        if(patient.getAddress() != null) {
-            var city = cityService.findCityById(patient.getAddress().getCity().getId());
-            patient.getAddress().setCity(city);
-        }
+        syncCityWithAddress(patient.getAddress());
 
         return repository.save(patient);
+    }
+
+    @Transactional
+    public Patient updateAddress(UUID id, Address address) {
+        syncCityWithAddress(address);
+
+        var patient = findPatientById(id);
+        patient.setAddress(address);
+
+        return patient;
     }
 
     public void validatePatient(Patient patient) {
         if(repository.existsByEmail(patient.getEmail())) {
             throw new ValidateException(String.format("Email '%s' already is in use.", patient.getEmail()));
+        }
+    }
+
+    public void syncCityWithAddress(Address address) {
+        if(address != null) {
+            var city = cityService.findCityById(address.getCity().getId());
+            address.setCity(city);
         }
     }
 

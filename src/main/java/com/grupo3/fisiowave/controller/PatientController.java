@@ -1,8 +1,10 @@
 package com.grupo3.fisiowave.controller;
 
+import com.grupo3.fisiowave.dto.AddressRequest;
 import com.grupo3.fisiowave.dto.PatientRequest;
 import com.grupo3.fisiowave.dto.PatientResponse;
 import com.grupo3.fisiowave.dto.PatientResumeResponse;
+import com.grupo3.fisiowave.model.Address;
 import com.grupo3.fisiowave.model.Patient;
 import com.grupo3.fisiowave.service.PatientService;
 import jakarta.validation.Valid;
@@ -46,6 +48,16 @@ public class PatientController {
                 .buildAndExpand(patient.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}/address")
+    public ResponseEntity<PatientResponse> updatePatientAddress(@PathVariable UUID id, @RequestBody @Valid AddressRequest request) {
+        var address = new Address();
+        request.copyToModel(address);
+
+        var patient = patientService.updateAddress(id, address);
+
+        return ResponseEntity.ok(PatientResponse.of(patient));
     }
 
     @DeleteMapping("/{id}")
