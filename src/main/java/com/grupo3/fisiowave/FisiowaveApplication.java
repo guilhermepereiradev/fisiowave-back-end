@@ -1,5 +1,7 @@
 package com.grupo3.fisiowave;
 
+import com.grupo3.fisiowave.model.City;
+import com.grupo3.fisiowave.model.State;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,5 +11,6 @@ public class FisiowaveApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FisiowaveApplication.class, args);
 	}
+
 
 }

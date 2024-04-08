@@ -48,13 +48,13 @@ public class PatientService {
     }
 
     public void validatePatient(Patient patient) {
-        if(repository.existsByEmail(patient.getEmail())) {
+        if (repository.existsByEmail(patient.getEmail())) {
             throw new ValidateException(String.format("Email '%s' already is in use.", patient.getEmail()));
         }
     }
 
     public void syncCityWithAddress(Address address) {
-        if(address != null) {
+        if (address != null) {
             var city = cityService.findCityById(address.getCity().getId());
             address.setCity(city);
         }

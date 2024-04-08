@@ -45,5 +45,4 @@ public class PatientRequest {
 
             patient.setAddress(newAddress);
         }
-    }
-}
+    }}
