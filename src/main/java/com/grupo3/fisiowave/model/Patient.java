@@ -2,9 +2,11 @@ package com.grupo3.fisiowave.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
@@ -26,6 +28,14 @@ public class Patient {
 
     @Column(nullable = false, length = 100, unique = true)
     private String email;
+
+    @CreationTimestamp
+    @Column(nullable = false, columnDefinition = "timestamp")
+    private OffsetDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(nullable = false, columnDefinition = "timestamp")
+    private OffsetDateTime updateAt;
 
     @Embedded
     private Address address;
