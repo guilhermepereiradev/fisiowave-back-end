@@ -25,7 +25,7 @@ public class PatientService {
 
     public Patient findPatientById(UUID id) {
         return repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.format("Patient not found for id: %s", id))
+                () -> new ResourceNotFoundException(String.format("Paciente não encontrado para id: %s", id))
         );
     }
 
@@ -47,9 +47,14 @@ public class PatientService {
         return patient;
     }
 
+    public void deletePatientById(UUID id) {
+        var patient = findPatientById(id);
+        repository.delete(patient);
+    }
+
     public void validatePatient(Patient patient) {
         if(repository.existsByEmail(patient.getEmail())) {
-            throw new ValidateException(String.format("Email '%s' already is in use.", patient.getEmail()));
+            throw new ValidateException(String.format("E-mail '%s' já está em uso.", patient.getEmail()));
         }
     }
 
@@ -58,10 +63,5 @@ public class PatientService {
             var city = cityService.findCityById(address.getCity().getId());
             address.setCity(city);
         }
-    }
-
-    public void deletePatientById(UUID id) {
-        var patient = findPatientById(id);
-        repository.delete(patient);
     }
 }
