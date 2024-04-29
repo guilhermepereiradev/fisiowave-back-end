@@ -1,6 +1,5 @@
 package com.grupo3.fisiowave.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.grupo3.fisiowave.model.Address;
 import com.grupo3.fisiowave.model.Patient;
 import jakarta.validation.Valid;
@@ -9,7 +8,6 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 @Data
 public class PatientRequest {
 

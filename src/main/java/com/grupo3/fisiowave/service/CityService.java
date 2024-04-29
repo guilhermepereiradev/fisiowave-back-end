@@ -21,7 +21,7 @@ public class CityService {
 
     public City findCityById(UUID id) {
         return repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.format("City not found for id: %s", id))
+                () -> new ResourceNotFoundException(String.format("Cidade não encontrada para o id: %s", id))
         );
     }
 

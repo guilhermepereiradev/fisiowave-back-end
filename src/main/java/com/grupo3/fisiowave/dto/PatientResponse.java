@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
@@ -19,6 +19,10 @@ public class PatientResponse {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String email;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+    private OffsetDateTime createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+    private OffsetDateTime updateAt;
     private AddressResponse address;
 
     public static PatientResponse of(Patient patient) {
@@ -28,6 +32,8 @@ public class PatientResponse {
                 patient.getPhoneNumber(),
                 patient.getBirthDate(),
                 patient.getEmail(),
+                patient.getCreatedAt(),
+                patient.getUpdateAt(),
                 AddressResponse.of(patient.getAddress())
         );
     }

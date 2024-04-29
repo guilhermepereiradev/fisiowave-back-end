@@ -22,7 +22,7 @@ public class ResourceExceptionHandler  extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
-        String error = "Resource not found";
+        String error = "Recurso não encontrado";
         HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError standardError = StandardError.builder()
                 .timestamp(Instant.now())
@@ -37,7 +37,7 @@ public class ResourceExceptionHandler  extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ValidateException.class)
     public ResponseEntity<StandardError> validateException(ValidateException e, HttpServletRequest request) {
-        String error = "Bad request";
+        String error = "Requisição inválida";
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError standardError = StandardError.builder()
                 .timestamp(Instant.now())
@@ -54,8 +54,8 @@ public class ResourceExceptionHandler  extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
-        String error = "Invalid request";
-        String message = "One or more fields are invalid. Please fill in the correct information and try again.";
+        String error = "Requisição inválida";
+        String message = "Um ou mais campos estão inválidos. Preencha as informações corretas e tente novamente.";
 
         List<StandardError.Object> problemsObjects = ex.getBindingResult().getAllErrors().stream().map(err ->
                         StandardError.Object.builder()
