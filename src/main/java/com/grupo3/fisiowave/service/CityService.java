@@ -24,4 +24,31 @@ public class CityService {
                 () -> new ResourceNotFoundException(String.format("Cidade não encontrada para o id: %s", id))
         );
     }
+
+    public City save(City city) {
+        return repository.save(city);
+
+    }
+
+    public City update(UUID id, City obj) {
+        City city = repository.getOne(id);
+        updateData(city, obj);
+        return repository.save(city);
+
+    }
+
+    private void updateData(City city, City obj) {
+        city.setName(obj.getName());
+        city.setState(obj.getState());
+    }
+
+
+    public void deleteCityById(UUID id) {
+
+        var city = findCityById(id);
+        repository.delete(city);
+
+
+    }
 }
+
