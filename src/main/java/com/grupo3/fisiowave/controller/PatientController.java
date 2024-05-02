@@ -57,7 +57,7 @@ public class PatientController {
 
         var patient = patientService.updateAddress(id, address);
 
-        return ResponseEntity.ok().body(PatientResponse.of(patient));
+        return ResponseEntity.ok(PatientResponse.of(patient));
     }
 
     @DeleteMapping("/{id}")

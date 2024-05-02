@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/fisiowave-db?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: postgres
-    password: 12345
+    password: 12345678
 
   jpa:
     hibernate:

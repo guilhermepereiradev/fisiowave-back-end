@@ -53,14 +53,19 @@ public class PatientService {
     }
 
     public void validatePatient(Patient patient) {
+<<<<<<< HEAD
 
         if(repository.existsByEmail(patient.getEmail())) {
             throw new ValidateException(String.format("E-mail '%s' já está em uso.", patient.getEmail()));
+=======
+        if(repository.existsByEmail(patient.getEmail())) {
+            throw new ValidateException(String.format("Email '%s' already is in use.", patient.getEmail()));
+>>>>>>> parent of 071ed91 (Implemented HTTP methods for managing City entity data)
         }
     }
 
     public void syncCityWithAddress(Address address) {
-        if (address != null) {
+        if(address != null) {
             var city = cityService.findCityById(address.getCity().getId());
             address.setCity(city);
         }
