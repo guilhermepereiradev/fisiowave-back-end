@@ -19,3 +19,9 @@ spring:
 
   flyway:
     locations: classpath:db/migration,classpath:db/testdata
+
+jwt:
+  public:
+    key: classpath:app.pub
+  private:
+    key: classpath:app.key

@@ -2,32 +2,26 @@ package com.grupo3.fisiowave.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.UUID;
+import java.util.HashSet;
+import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class Patient {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(nullable = false)
-    private String name;
+@PrimaryKeyJoinColumn(name = "id")
+public class Patient extends User {
 
     @Column(nullable = false, length = 14)
     private String phoneNumber;
 
     @Column(nullable = false, columnDefinition = "date")
     private LocalDate birthDate;
-
-    @Column(nullable = false, length = 100, unique = true)
-    private String email;
 
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "timestamp")
@@ -39,4 +33,7 @@ public class Patient {
 
     @Embedded
     private Address address;
+
+    @OneToMany(mappedBy = "patient")
+    private Set<Appointment> appointments = new HashSet<>();
 }

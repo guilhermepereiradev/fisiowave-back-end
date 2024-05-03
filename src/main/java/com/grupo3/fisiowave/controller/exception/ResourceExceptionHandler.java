@@ -1,5 +1,6 @@
 package com.grupo3.fisiowave.controller.exception;
 
+import com.grupo3.fisiowave.service.exception.BadCredentialException;
 import com.grupo3.fisiowave.service.exception.ResourceNotFoundException;
 import com.grupo3.fisiowave.service.exception.ValidateException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,6 +40,21 @@ public class ResourceExceptionHandler  extends ResponseEntityExceptionHandler {
     public ResponseEntity<StandardError> validateException(ValidateException e, HttpServletRequest request) {
         String error = "Requisição inválida";
         HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError standardError = StandardError.builder()
+                .timestamp(Instant.now())
+                .status(status.value())
+                .error(error)
+                .message(e.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(status).body(standardError);
+    }
+
+    @ExceptionHandler(BadCredentialException.class)
+    public ResponseEntity<StandardError> badCredentials(BadCredentialException e, HttpServletRequest request) {
+        String error = "Credenciais inválidas";
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
         StandardError standardError = StandardError.builder()
                 .timestamp(Instant.now())
                 .status(status.value())
