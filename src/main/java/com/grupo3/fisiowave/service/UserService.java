@@ -30,7 +30,7 @@ public class UserService {
         }
 
         var now = Instant.now();
-        var expiresIn = 300L;
+        var expiresIn = 86400L;
 
         var claims = JwtClaimsSet.builder()
                 .issuer("fisiowave-back-end")

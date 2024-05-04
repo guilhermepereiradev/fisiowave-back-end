@@ -5,6 +5,7 @@ delete from patient;
 delete from physiotherapist;
 delete from city;
 delete from state;
+delete from appointment;
 
 set session_replication_role = 'origin';
 
