@@ -27,7 +27,7 @@ public class PatientResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
     private OffsetDateTime updateAt;
     private AddressResponse address;
-    private Set<AppointmentResponse> appointments;
+    private Set<AppointmentResumeResponse> appointments;
 
     public static PatientResponse of(Patient patient) {
         return new PatientResponse(
@@ -39,7 +39,7 @@ public class PatientResponse {
                 patient.getCreatedAt(),
                 patient.getUpdateAt(),
                 AddressResponse.of(patient.getAddress()),
-                AppointmentResponse.of(patient.getAppointments())
+                AppointmentResumeResponse.of(patient.getAppointments())
         );
     }
 }
