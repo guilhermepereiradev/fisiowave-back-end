@@ -18,7 +18,7 @@ public class DateService {
         var start = LocalTime.of(8, 0);
         var end = LocalTime.of(17, 0);
         for (var time = start; time.isBefore(end); time = time.plusHours(1)) {
-            availableTimes.add(OffsetDateTime.of(date, time, ZoneOffset.UTC));
+            availableTimes.add(OffsetDateTime.of(date, time, ZoneOffset.of("-03:00")));
         }
 
         availableTimes.remove(OffsetDateTime.of(date, LocalTime.of(12, 0), ZoneOffset.UTC));
