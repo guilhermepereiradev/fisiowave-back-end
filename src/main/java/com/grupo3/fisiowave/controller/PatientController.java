@@ -1,10 +1,8 @@
 package com.grupo3.fisiowave.controller;
 
-import com.grupo3.fisiowave.dto.AddressRequest;
-import com.grupo3.fisiowave.dto.PatientRequest;
-import com.grupo3.fisiowave.dto.PatientResponse;
-import com.grupo3.fisiowave.dto.PatientResumeResponse;
+import com.grupo3.fisiowave.dto.*;
 import com.grupo3.fisiowave.model.Address;
+import com.grupo3.fisiowave.model.Anamnesis;
 import com.grupo3.fisiowave.model.Patient;
 import com.grupo3.fisiowave.service.PatientService;
 import jakarta.validation.Valid;
@@ -74,5 +72,16 @@ public class PatientController {
     public ResponseEntity<Void> deletePatient(@PathVariable UUID id) {
         patientService.deletePatientById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/anamnesis")
+    @PreAuthorize(ADMIN_SCOPE)
+    public ResponseEntity<PatientResponse> createAnamnesis(@PathVariable UUID id, @RequestBody AnamnesisRequest request) {
+        var anamnesis = new Anamnesis();
+        request.copyToModel(anamnesis);
+
+        var patient = patientService.updateAnamnesis(id, anamnesis);
+
+        return ResponseEntity.ok(PatientResponse.of(patient));
     }
 }

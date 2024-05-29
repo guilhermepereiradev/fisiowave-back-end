@@ -1,7 +1,9 @@
 package com.grupo3.fisiowave.service;
 
 import com.grupo3.fisiowave.model.Address;
+import com.grupo3.fisiowave.model.Anamnesis;
 import com.grupo3.fisiowave.model.Patient;
+import com.grupo3.fisiowave.repository.AnamnesisRepository;
 import com.grupo3.fisiowave.repository.PatientRepository;
 import com.grupo3.fisiowave.service.exception.ResourceNotFoundException;
 import com.grupo3.fisiowave.service.exception.ValidateException;
@@ -18,6 +20,7 @@ public class PatientService {
 
     private final PatientRepository repository;
     private final CityService cityService;
+    private final AnamnesisRepository anamnesisRepository;
 
     public List<Patient> findAllPatients() {
         return repository.findAll();
@@ -64,5 +67,19 @@ public class PatientService {
             var city = cityService.findCityById(address.getCity().getId());
             address.setCity(city);
         }
+    }
+
+    @Transactional
+    public Patient updateAnamnesis(UUID id, Anamnesis newAnamnesis) {
+        var patient = findPatientById(id);
+
+        if (patient.getAnamnesis() != null && patient.getAnamnesis().getId() != null) {
+            newAnamnesis.setId(patient.getAnamnesis().getId());
+            newAnamnesis = anamnesisRepository.save(newAnamnesis);
+        }
+
+        patient.setAnamnesis(newAnamnesis);
+
+        return patient;
     }
 }

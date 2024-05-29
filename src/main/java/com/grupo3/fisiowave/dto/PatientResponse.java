@@ -28,6 +28,7 @@ public class PatientResponse {
     private OffsetDateTime updateAt;
     private AddressResponse address;
     private Set<AppointmentResumeResponse> appointments;
+    private AnamnesisResponse anamnesisResponse;
 
     public static PatientResponse of(Patient patient) {
         return new PatientResponse(
@@ -39,7 +40,8 @@ public class PatientResponse {
                 patient.getCreatedAt(),
                 patient.getUpdateAt(),
                 AddressResponse.of(patient.getAddress()),
-                AppointmentResumeResponse.of(patient.getAppointments())
+                AppointmentResumeResponse.of(patient.getAppointments()),
+                AnamnesisResponse.of(patient.getAnamnesis())
         );
     }
 }

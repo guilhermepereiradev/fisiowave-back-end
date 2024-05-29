@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,4 +16,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, UUID> 
 
     @Query("select distinct(a.time) from Appointment a where date(a.time) = :date and a.physiotherapist.id = :physioId")
     Set<OffsetDateTime> findAppointmentForDateByPhysioId(LocalDate date, UUID physioId);
+    Set<Appointment> findByPhysiotherapistId(UUID id);
 }

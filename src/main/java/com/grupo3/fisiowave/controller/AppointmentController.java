@@ -1,5 +1,6 @@
 package com.grupo3.fisiowave.controller;
 
+import com.grupo3.fisiowave.config.SecurityExpressions;
 import com.grupo3.fisiowave.dto.AppointmentRequest;
 import com.grupo3.fisiowave.dto.AppointmentResponse;
 import com.grupo3.fisiowave.service.AppointmentService;
@@ -8,6 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+import static com.grupo3.fisiowave.config.SecurityExpressions.ADMIN_SCOPE;
 
 
 @RestController
@@ -22,5 +29,12 @@ public class AppointmentController {
     public ResponseEntity<AppointmentResponse> makeAppointment(@RequestBody @Valid AppointmentRequest request) {
         var appointment = service.makeAppointment(request.getPatientId(), request.getPhysiotherapistId(), request.getTime());
         return ResponseEntity.ok(AppointmentResponse.of(appointment));
+    }
+
+    @GetMapping("/physiotherapist/{id}")
+    @PreAuthorize(ADMIN_SCOPE)
+    public ResponseEntity<Set<AppointmentResponse>> getAppointmentsByPhysio(@PathVariable UUID id) {
+        var appointments = service.getAppointmentsByPhysio(id);
+        return ResponseEntity.ok(AppointmentResponse.of(appointments));
     }
 }

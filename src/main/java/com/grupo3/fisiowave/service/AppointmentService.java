@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -31,5 +33,9 @@ public class AppointmentService {
         appointment.setPhysiotherapist(physiotherapist);
 
         return repository.save(appointment);
+    }
+
+    public Set<Appointment> getAppointmentsByPhysio(UUID id) {
+        return repository.findByPhysiotherapistId(id);
     }
 }

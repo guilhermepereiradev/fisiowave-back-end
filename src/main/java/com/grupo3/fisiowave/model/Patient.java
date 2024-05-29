@@ -36,4 +36,8 @@ public class Patient extends User {
 
     @OneToMany(mappedBy = "patient")
     private Set<Appointment> appointments = new HashSet<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "anamnesis_id", referencedColumnName = "id")
+    private Anamnesis anamnesis;
 }

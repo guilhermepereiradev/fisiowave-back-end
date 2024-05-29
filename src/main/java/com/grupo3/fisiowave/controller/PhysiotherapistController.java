@@ -30,4 +30,10 @@ public class PhysiotherapistController {
         var availablePhysiotherapists = service.findAvailableTimes(date, id);
         return ResponseEntity.ok(availablePhysiotherapists);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PhysiotherapistResumeResponse> findById(@PathVariable UUID id) {
+        var physiotherapist = service.findById(id);
+        return ResponseEntity.ok(PhysiotherapistResumeResponse.of(physiotherapist));
+    }
 }
