@@ -2,12 +2,13 @@ package com.grupo3.fisiowave.service;
 
 import com.grupo3.fisiowave.model.Appointment;
 import com.grupo3.fisiowave.repository.AppointmentRepository;
+import com.grupo3.fisiowave.service.exception.ResourceNotFoundException;
+import com.grupo3.fisiowave.service.exception.ValidateException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -37,5 +38,22 @@ public class AppointmentService {
 
     public Set<Appointment> getAppointmentsByPhysio(UUID id) {
         return repository.findByPhysiotherapistId(id);
+    }
+
+    @Transactional
+    public Appointment updateObservation(UUID id, String observation) {
+        if (observation == null || observation.length() > 1000) {
+            throw new ValidateException("Observação não é um valor valido");
+        }
+
+        var appointment = findById(id);
+        appointment.setObservation(observation);
+
+        return appointment;
+    }
+
+    public Appointment findById(UUID id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Sessão não encontrada para id: %s", id)));
     }
 }

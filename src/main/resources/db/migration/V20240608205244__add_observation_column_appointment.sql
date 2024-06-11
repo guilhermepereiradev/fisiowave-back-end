@@ -1,0 +1,1 @@
+alter table if exists appointment add column observation varchar (1000);

@@ -17,13 +17,15 @@ public class AppointmentResponse {
     private OffsetDateTime time;
     private PatientResumeResponse patient;
     private PhysiotherapistResumeResponse physiotherapist;
+    private String observation;
 
     public static AppointmentResponse of(Appointment appointment) {
         return new AppointmentResponse(
                 appointment.getId(),
                 appointment.getTime(),
                 PatientResumeResponse.of(appointment.getPatient()),
-                PhysiotherapistResumeResponse.of(appointment.getPhysiotherapist())
+                PhysiotherapistResumeResponse.of(appointment.getPhysiotherapist()),
+                appointment.getObservation()
         );
     }
 

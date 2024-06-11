@@ -25,4 +25,7 @@ public class Appointment {
     @ManyToOne
     private Physiotherapist physiotherapist;
 
+    @Column(length = 1000)
+    private String observation;
+
 }
