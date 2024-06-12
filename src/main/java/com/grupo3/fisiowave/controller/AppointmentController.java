@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import static com.grupo3.fisiowave.config.SecurityExpressions.ADMIN_SCOPE;
-import static com.grupo3.fisiowave.config.SecurityExpressions.CHECK_ID_OR_ADMIN_SCOPE;
 
 
 @RestController
@@ -45,7 +44,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize(CHECK_ID_OR_ADMIN_SCOPE)
+    @PreAuthorize(ADMIN_SCOPE)
     public ResponseEntity<AppointmentResponse> findById(@PathVariable UUID id) {
         var appointment = service.findById(id);
         return ResponseEntity.ok(AppointmentResponse.of(appointment));
