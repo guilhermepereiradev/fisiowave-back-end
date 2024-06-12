@@ -1,5 +1,6 @@
 package com.grupo3.fisiowave.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.grupo3.fisiowave.model.Anamnesis;
 import com.grupo3.fisiowave.model.Gender;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AnamnesisResponse {
 
     private UUID id;
@@ -27,7 +29,7 @@ public class AnamnesisResponse {
 
     public static AnamnesisResponse of(Anamnesis anamnesis) {
         if (anamnesis == null) {
-            return new AnamnesisResponse();
+            return null;
         }
         return new AnamnesisResponse(
                 anamnesis.getId(),

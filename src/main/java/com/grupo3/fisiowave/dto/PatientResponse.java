@@ -28,7 +28,7 @@ public class PatientResponse {
     private OffsetDateTime updateAt;
     private AddressResponse address;
     private Set<AppointmentResumeResponse> appointments;
-    private AnamnesisResponse anamnesisResponse;
+    private AnamnesisResponse anamnesis;
 
     public static PatientResponse of(Patient patient) {
         return new PatientResponse(
