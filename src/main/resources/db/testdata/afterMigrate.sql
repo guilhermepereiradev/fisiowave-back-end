@@ -28,7 +28,7 @@ insert into state (id, name, acronym) values
 insert into city (id, name, state_id) values ('2b51c96e-6a54-497f-9cf3-1e68b0cd7314', 'Sete Lagoas', '293f9d45-8ed8-45d7-92d3-ffbdd68aef8b');
 insert into city (id, name, state_id) values ('1fdb652b-c20e-45c6-9ec1-bf91eb87635f', 'Belo Horizonte', '293f9d45-8ed8-45d7-92d3-ffbdd68aef8b');
 
-insert into user_ (id, email, name, password) values ('e12ee6a3-9b44-4717-b15d-d7a5d87f32d7', 'john.physio@email.com', 'John Physiotherapist', '$2a$10$5MEfMYgA0d.//KjAQcxxUe3NMfcrU8G2EyEfq8.72dsrctKlBb4Za');
+insert into user_ (id, email, name, password) values ('e12ee6a3-9b44-4717-b15d-d7a5d87f32d7', 'john.fisiowave@gmail.com', 'John Physiotherapist', '$2a$10$5MEfMYgA0d.//KjAQcxxUe3NMfcrU8G2EyEfq8.72dsrctKlBb4Za');
 insert into physiotherapist (id) values ('e12ee6a3-9b44-4717-b15d-d7a5d87f32d7');
 
 insert into user_ (id, email, name, password) values ('b6282d70-57a5-4f19-8d43-ae85fd019d2f', 'john.patient@email.com', 'John Patient', '$2a$10$5MEfMYgA0d.//KjAQcxxUe3NMfcrU8G2EyEfq8.72dsrctKlBb4Za');
