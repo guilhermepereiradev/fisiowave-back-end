@@ -26,6 +26,17 @@ spring:
   flyway:
     locations: classpath:db/migration,classpath:db/testdata
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: john.fisiowave@gmail.com
+    password: ****
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: true
 jwt:
   public:
     key: classpath:app.pub
