@@ -2,8 +2,7 @@ package com.grupo3.fisiowave.service;
 
 import com.grupo3.fisiowave.model.Appointment;
 import com.grupo3.fisiowave.model.Patient;
-import com.grupo3.fisiowave.model.Physiotherapist;
-import com.grupo3.fisiowave.model.dto.BookAppointmentConfirmationEmailDto;
+import com.grupo3.fisiowave.model.dto.EmailDto;
 import com.grupo3.fisiowave.repository.AppointmentRepository;
 import com.grupo3.fisiowave.service.exception.ResourceNotFoundException;
 import com.grupo3.fisiowave.service.exception.ValidateException;
@@ -12,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Set;
@@ -41,7 +41,7 @@ public class AppointmentService {
 
         appointment = repository.save(appointment);
 
-        sendConfirmationEmail(patient, appointment.getTime(), physiotherapist);
+        sendConfirmationEmail(patient, appointment.getTime(), physiotherapist.getName());
 
         return appointment;
     }
@@ -67,16 +67,17 @@ public class AppointmentService {
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Sessão não encontrada para id: %s", id)));
     }
 
-    private void sendConfirmationEmail(Patient patient, OffsetDateTime time, Physiotherapist physiotherapist) {
+    private void sendConfirmationEmail(Patient patient, OffsetDateTime time, String physiotherapistName) {
         var variables = new HashMap<String, Object>();
         variables.put("patientName", patient.getName());
         variables.put("date", time.toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         variables.put("time", time.toLocalTime().minusHours(3).format(DateTimeFormatter.ofPattern("HH:mm")));
-        variables.put("physioName", physiotherapist.getName());
+        variables.put("physioName", physiotherapistName);
 
-        var emailDto = BookAppointmentConfirmationEmailDto.builder()
+        var emailDto = EmailDto.builder()
                 .recipient(patient.getEmail())
                 .subject("FisioWave - Sessão marcada com sucesso")
+                .body("book-appointment-confirmation.html")
                 .variables(variables)
                 .build();
 

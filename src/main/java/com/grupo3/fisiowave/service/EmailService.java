@@ -1,6 +1,6 @@
 package com.grupo3.fisiowave.service;
 
-import com.grupo3.fisiowave.model.dto.BookAppointmentConfirmationEmailDto;
+import com.grupo3.fisiowave.model.dto.EmailDto;
 import com.grupo3.fisiowave.service.exception.ValidateException;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -25,7 +25,7 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String sender;
 
-    public void send(BookAppointmentConfirmationEmailDto emailDto) {
+    public void send(EmailDto emailDto) {
         try {
             mailSender.send(createMimeMessage(emailDto));
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class EmailService {
         }
     }
 
-    private MimeMessage createMimeMessage(BookAppointmentConfirmationEmailDto emailDto) throws MessagingException {
+    private MimeMessage createMimeMessage(EmailDto emailDto) throws MessagingException {
         String body = processTemplate(emailDto.getBody(), emailDto.getVariables());
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();

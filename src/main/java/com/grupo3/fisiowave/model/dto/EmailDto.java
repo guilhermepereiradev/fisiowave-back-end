@@ -7,10 +7,10 @@ import java.util.HashMap;
 
 @Getter
 @Builder
-public class BookAppointmentConfirmationEmailDto {
+public class EmailDto {
 
     private String recipient;
     private String subject;
-    private final String body = "book-appointment-confirmation.html";
+    private String body;
     private HashMap<String, Object> variables;
 }
